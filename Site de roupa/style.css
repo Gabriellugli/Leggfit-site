@@ -1,0 +1,257 @@
+/*======================
+    VARIÁVEIS DA MARCA
+======================*/
+:root {
+    --preto: #0B0B0B;
+    --preto-secundario: #141414;
+    --preto-header: #000000;
+    --branco: #FFFFFF;
+    --cinza: #CCCCCC;
+    --cinza-fraco: #AAAAAA;
+    --verde: #B6FF00;
+    
+}
+
+/*=================
+    RESET
+=================*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*=================
+    BODY
+=================*/
+body {
+    font-family: 'Inter' , sans-serif;
+    background: var(--preto);
+    color: var(--branco);
+    line-height: 1.6;
+}
+
+/*=================
+    CONTAINER
+=================*/
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/*=================
+    HEADER
+=================*/
+.header {
+    background: var(--preto-header);
+    border-bottom: 1px solid #1A1A1A;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--verde);
+}
+
+.header nav a {
+    color: var(--branco);
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+}
+
+.header nav a {
+    color: var(--branco);
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+}
+
+.header nav a:hover {
+    color: var(--verde)
+}
+
+/*=============
+    HERO
+=============*/
+.hero {
+    padding: 100px 0;
+    text-align: center;
+    background: linear-gradient(180deg, #000000 0%, var(--preto)100%);
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    font-size: 18px;
+    color: var(--cinza);
+    margin-bottom: 32px;
+}
+
+/*BOTÂO PRINCIPAL*/
+.btn-primary {
+    display: inline-block;
+    background: var(--verde);
+    color: #000;
+    padding: 14px 36px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(182, 255, 0, 0.3);
+}
+
+/*===============
+    PRODUTOS
+===============*/
+.produtos {
+    padding: 80px 0;
+}
+.produtos h2 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 50px;
+}
+
+/*GRID*/
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+}
+/*======================
+    CARD DE PRODUTO
+======================*/
+.card {
+    background: var(--preto-secundario);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s ease,box-shadow 0.2s ease;
+
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+
+}
+.card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 16px;
+}
+
+.card h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+/*PREÇO*/
+.price {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--verde);
+    margin-bottom: 16px;
+}
+
+/*BOTÂO COMPRAR*/
+.btn-buy {
+    display: inline-block;
+    background: var(--verde);
+    color: #000;
+    padding: 10px 26px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.btn-buy:hover {
+    opacity: 0.9;
+    transform: scale(1.03);
+}
+
+/*================
+    FOOTER
+================*/
+.footer {
+    border-top: 1px solid #1A1A1A;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 14px;
+    color: var(--cinza-fraco);
+}
+
+/*==============
+    RESPONSIVO
+==============*/
+@media (max-width:768px) {
+    .hero h1 {
+        font-size: 34px;
+    }
+}
+
+.cart-icon {
+    cursor:pointer;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #00ff66;
+}
+
+.cart {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 320px;
+    height: 100%;
+    background: #000;
+    color:#fff;
+    padding: 20px;
+    transition: right 0.3s ease;
+    z-index: 999;
+}
+
+
+.size,
+.color {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    border: 1px solid #00ff66;
+    background: #000;
+    color: #000;
+}
+
+
+.sold-out {
+    opacity: 0.5;
+}
+
+.sold-out img {
+    filter: grayscale(100%);
+}
+
+.sold-out .btn-buy {
+    background: #444;
+    cursor: not-allowed;
+}
