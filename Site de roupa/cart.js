@@ -60,3 +60,38 @@ document.addEventListener("DOMContentLoaded", () => {updateCartCount();
         alert("Produto adicionado ao carrinho!");
     });
 });
+
+// ===== RENDERIZA CHECKOUT =====
+function renderCheckout() {
+    const cartItemsContainer = document.getElementById("cart-items");
+    const totalPriceElement = document.getElementById("total-price");
+
+    if (!cartItemsContainer || !totalPriceElement) return;
+
+    cartItemsContainer.innerHTML = "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+
+        const div = document.createElement("div");
+        div.classList.add("cart-item");
+
+        div.innerHTML = `
+            <p><strong>${item.name}</strong></p>
+            <p>Tamanho: ${item.size}</p>
+            <p>Cor: ${item.color}</p>
+            <p>Quantidade: ${item.quantity}</p>
+            <p>Preço: R$ ${item.price.toFixed(2)}</p>
+            <hr>
+        `;
+
+        cartItemsContainer.appendChild(div);
+    });
+
+    totalPriceElement.innerText = total.toFixed(2);
+}
+
+// Chama automaticamente no checkout
+document.addEventListener("DOMContentLoaded", renderCheckout);

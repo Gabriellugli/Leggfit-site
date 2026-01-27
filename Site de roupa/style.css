@@ -255,3 +255,41 @@ body {
     background: #444;
     cursor: not-allowed;
 }
+/* ===== CORREÇÃO DOS SELECTS ===== */
+select {
+    width: 100%;
+    padding: 12px;
+    background-color: #000;
+    color: #fff;              /* texto selecionado */
+    border: 1px solid #00ff66;
+    border-radius: 6px;
+    font-size: 16px;
+
+    /* remove estilo nativo estranho do navegador */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* opções dentro do dropdown */
+select option {
+    background-color: #fff;   /* fundo do menu */
+    color: #000;              /* texto do menu */
+}
+
+/* quando o select está focado */
+select:focus {
+    outline: none;
+    border-color: #00ff66;
+}
+/* FORÇA a cor do texto selecionado */
+.produto-info select {
+    color: #ffffff !important;
+}
+
+/* garante que a opção selecionada apareça */
+.produto-info select option:checked {
+    color: #000000;
+    background-color: #ffffff;
+}
+
