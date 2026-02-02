@@ -293,3 +293,18 @@ select:focus {
     background-color: #ffffff;
 }
 
+.remove-btn {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #ff3b3b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.remove-btn:hover {
+    background-color: #d60000;
+}
+
+

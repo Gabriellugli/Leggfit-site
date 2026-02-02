@@ -1,97 +1,78 @@
-//===CARRINHO BASE===
-//Busca carrinho salvo ou cria um novo
+// =======================
+// CARRINHO GLOBAL
+// =======================
+
+// Carrega carrinho salvo ou cria vazio
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-//Atualiza o contador do carrinho
+// Atualiza número do carrinho no topo
 function updateCartCount() {
     const cartCount = document.getElementById("cart-count");
     if (!cartCount) return;
 
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const totalItems = cart.reduce(
+        (sum, item) => sum + item.quantity,
+        0
+    );
+
     cartCount.textContent = totalItems;
 }
 
-//Salva o Carrinho
+// Salva carrinho
 function saveCart() {
     localStorage.setItem("cart", JSON.stringify(cart));
     updateCartCount();
 }
-//Adicionar ao carrinho
-document.addEventListener("DOMContentLoaded", () => {updateCartCount();
-    
 
-    const addbutton = document.querySelector(".btn-primary");
-    if (!addbutton) return;
+// =======================
+// ADICIONAR AO CARRINHO
+// =======================
 
-    addbutton.addEventListener("click", () => {
-        const name = document.querySelector("h1")?.innerText;
-        const priceText = document.querySelector(".price")?.innerText;
+document.addEventListener("DOMContentLoaded", () => {
+    updateCartCount();
+
+    const addButton = document.querySelector(".btn-primary");
+    if (!addButton) return;
+
+    addButton.addEventListener("click", () => {
+        const name = document.querySelector(".product-name")?.innerText;
+        const priceElement = document.querySelector(".product-price");
+        const price = Number(priceElement?.dataset.price);
+
         const size = document.querySelector(".size")?.value;
         const color = document.querySelector(".color")?.value;
-        const quantity = parseInt(document.querySelector(".quantity")?.value || 1);
+        const quantity = Number(
+            document.querySelector(".quantity")?.value || 1
+        );
 
-        if(!size || !color) {
-            alert("Selecione qual o tamanho e qual a cor");
+        const image = document.querySelector(".produto-imagens img")?.src;
+
+        if (!size || !color) {
+            alert("Selecione tamanho e cor");
             return;
         }
 
-        const price = parseFloat(
-            priceText.replace("R$", "").replace(",",".")
+        const existingItem = cart.find(
+            item =>
+                item.name === name &&
+                item.size === size &&
+                item.color === color
         );
 
-        const existing = cart.find(
-            item=> item.name === name && item.size === size && item.color === color
-        
-        );
-
-        if (existing) {
-            existing.quantity += quantity;
+        if (existingItem) {
+            existingItem.quantity += quantity;
         } else {
             cart.push({
                 name,
                 price,
                 size,
                 color,
-                quantity
+                quantity,
+                image
             });
         }
-        
+
         saveCart();
         alert("Produto adicionado ao carrinho!");
     });
 });
-
-// ===== RENDERIZA CHECKOUT =====
-function renderCheckout() {
-    const cartItemsContainer = document.getElementById("cart-items");
-    const totalPriceElement = document.getElementById("total-price");
-
-    if (!cartItemsContainer || !totalPriceElement) return;
-
-    cartItemsContainer.innerHTML = "";
-    let total = 0;
-
-    cart.forEach((item, index) => {
-        const itemTotal = item.price * item.quantity;
-        total += itemTotal;
-
-        const div = document.createElement("div");
-        div.classList.add("cart-item");
-
-        div.innerHTML = `
-            <p><strong>${item.name}</strong></p>
-            <p>Tamanho: ${item.size}</p>
-            <p>Cor: ${item.color}</p>
-            <p>Quantidade: ${item.quantity}</p>
-            <p>Preço: R$ ${item.price.toFixed(2)}</p>
-            <hr>
-        `;
-
-        cartItemsContainer.appendChild(div);
-    });
-
-    totalPriceElement.innerText = total.toFixed(2);
-}
-
-// Chama automaticamente no checkout
-document.addEventListener("DOMContentLoaded", renderCheckout);

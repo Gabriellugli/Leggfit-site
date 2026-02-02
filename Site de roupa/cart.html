@@ -1,33 +1,95 @@
 <!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <tittle>Carrinho</tittle>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Meu Carrinho</title>
+
+<style>
+body {
+    background:#0b0b0b;
+    color:#fff;
+    font-family:Arial, sans-serif;
+    padding:20px;
+}
+.cart-item {
+    border-bottom:1px solid #333;
+    padding:15px 0;
+}
+button {
+    margin-top:10px;
+    padding:8px 14px;
+    background:#ff3b3b;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+button:hover {
+    background:#cc0000;
+}
+.total {
+    margin-top:20px;
+    font-size:22px;
+}
+</style>
 </head>
+
 <body>
 
+<h1>Meu Carrinho</h1>
+<div id="cart-items"></div>
+<div class="total" id="total"></div>
 
-    <header class="tob-bar">
-        <a href="index.html"⬅Voltar</a>
-        <h2>Seu Carrinho</h2>
-    </header>
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+function renderCart() {
+    const container = document.getElementById("cart-items");
+    const totalDiv = document.getElementById("total");
+    container.innerHTML = "";
 
-    <main class="cart-container">
+    let total = 0;
 
-        <!--Aqui os produtos vão aparecer-->
-    <div id="cart-items"></div>
+    if (cart.length === 0) {
+        container.innerHTML = "<p>Carrinho vazio</p>";
+        totalDiv.innerHTML = "Total: R$ 0,00";
+        return;
+    }
 
-    <!--Total-->
-    <div class="cart-total">
-        <h3>Total: <span id="total-price">R$ 0,00</span></h3>
-        <a href="checkout.html" class="btn-primary">Finalizar compra</a>
-    </div>
+    cart.forEach((item, index) => {
+        total += item.price * item.quantity;
 
+        const div = document.createElement("div");
+        div.className = "cart-item";
 
-    </main>
+        div.innerHTML = `
+            <p><strong>${item.name}</strong></p>
+            <p>Tamanho: ${item.size}</p>
+            <p>Cor: ${item.color}</p>
+            <p>Quantidade: ${item.quantity}</p>
+            <p>Preço: R$ ${item.price.toFixed(2)}</p>
+            <button data-index="${index}">Remover</button>
+        `;
 
+        container.appendChild(div);
+    });
 
-    <script src="cart-page.js"></script>
+    totalDiv.innerHTML = `Total: R$ ${total.toFixed(2)}`;
+
+    // EVENTO FUNCIONA SEMPRE (sem onclick)
+    document.querySelectorAll("button").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const i = btn.getAttribute("data-index");
+            cart.splice(i, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            renderCart();
+        });
+    });
+}
+
+renderCart();
+</script>
+
 </body>
 </html>
+
